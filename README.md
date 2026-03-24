@@ -154,7 +154,7 @@ Make sure all movie information from Part 1 is displayed on the page in a clear 
 
 Here's a screenshot of what your application might look like after implementing this part (your structure may vary):
 
-![Part 2 example implementation shown Chrome](images/Part2-done.png "Part 2 implementation shown in Chrome")
+![Part 2 example implementation shown Chrome](server/files/images/Part2-done.png "Part 2 implementation shown in Chrome")
 
 **Check your implementation by viewing the application in your browser and verifying all movie data is displayed correctly.**
 
@@ -195,6 +195,6 @@ Here are **suggestions** for styling rules you could add. Feel free to be creati
 
 In the end, your application could look something like this (or completely different based on your creativity):
 
-![Exercise 1 example implementation shown Chrome](images/Part3-done.png "Exercise 1 implementation shown in Chrome")
+![Exercise 1 example implementation shown Chrome](server/files/images/Part3-done.png "Exercise 1 implementation shown in Chrome")
 
 **Congratulations on finishing the first exercise!** Make sure to test your application thoroughly and be ready to present your work in the next meeting.

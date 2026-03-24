@@ -1,37 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies!</title>
     <style>
-        /* Part 3: Your styling goes here */
-    </style>
-    <script>
-        function reverseString(s) {
-            return s.split("").reverse().join("");
+        body {
+            font-family: Trebuchet MS, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
         }
 
+        article {
+            background-color: #d9d9d9;
+            border: 1px solid #b5b5b5;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 300px;
+            border-radius: 12px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            margin-bottom: 8px;
+        }
+
+        span {
+            margin-right: 8px;
+        }
+
+        .genre {
+            background-color: #cfcfcf;
+            border: 1px solid #777;
+            border-radius: 8px;
+            padding: 4px 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+    </style>
+    <script>
         window.onload = function () {
             const xhr = new XMLHttpRequest()
             xhr.onload = function () {
-                const bodyElement = document.querySelector("body")
+                const bodyElement = document.body
+
                 if (xhr.status == 200) {
-		            /* Part 2: Build the HTML elements here and append them to the body */ 
-                    bodyElement.append(reverseString(xhr.responseText))
+                    const movies = JSON.parse(xhr.responseText)
+
+                    movies.forEach(function (movie) {
+                        const articleElement = document.createElement("article")
+
+                        const posterElement = document.createElement("img")
+                        posterElement.src = movie.Poster
+                        posterElement.alt = movie.Title
+                        articleElement.append(posterElement)
+
+                        const titleElement = document.createElement("h1")
+                        titleElement.textContent = movie.Title
+                        articleElement.append(titleElement)
+
+                        const infoElement = document.createElement("p")
+                        infoElement.textContent = "Runtime " + movie.Runtime + " min • Released on " + movie.Released
+                        articleElement.append(infoElement)
+
+                        const genresElement = document.createElement("p")
+                        movie.Genres.forEach(function (genre) {
+                            const genreElement = document.createElement("span")
+                            genreElement.className = "genre"
+                            genreElement.textContent = genre
+                            genresElement.append(genreElement)
+                        })
+                        articleElement.append(genresElement)
+
+                        const plotElement = document.createElement("p")
+                        plotElement.textContent = movie.Plot
+                        articleElement.append(plotElement)
+
+                        const directorsHeading = document.createElement("h2")
+                        directorsHeading.textContent = "Directors"
+                        articleElement.append(directorsHeading)
+
+                        const directorsList = document.createElement("ul")
+                        movie.Directors.forEach(function (director) {
+                            const listItem = document.createElement("li")
+                            listItem.textContent = director
+                            directorsList.append(listItem)
+                        })
+                        articleElement.append(directorsList)
+
+                        const writersHeading = document.createElement("h2")
+                        writersHeading.textContent = "Writers"
+                        articleElement.append(writersHeading)
+
+                        const writersList = document.createElement("ul")
+                        movie.Writers.forEach(function (writer) {
+                            const listItem = document.createElement("li")
+                            listItem.textContent = writer
+                            writersList.append(listItem)
+                        })
+                        articleElement.append(writersList)
+
+                        const actorsHeading = document.createElement("h2")
+                        actorsHeading.textContent = "Actors"
+                        articleElement.append(actorsHeading)
+
+                        const actorsList = document.createElement("ul")
+                        movie.Actors.forEach(function (actor) {
+                            const listItem = document.createElement("li")
+                            listItem.textContent = actor
+                            actorsList.append(listItem)
+                        })
+                        articleElement.append(actorsList)
+
+                        const metascoreElement = document.createElement("p")
+                        metascoreElement.textContent = "Metascore: " + movie.Metascore
+                        articleElement.append(metascoreElement)
+
+                        const imdbRatingElement = document.createElement("p")
+                        imdbRatingElement.textContent = "IMDb Rating: " + movie.imdbRating
+                        articleElement.append(imdbRatingElement)
+
+                        bodyElement.append(articleElement)
+                    })
                 } else {
                     bodyElement.append("Daten konnten nicht geladen werden, Status " + xhr.status + " - " + xhr.statusText)
                 }
             }
+
             xhr.open("GET", "/movies")
             xhr.send()
         }
     </script>
-
 </head>
-
 <body>
 </body>
-
 </html>
